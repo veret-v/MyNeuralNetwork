@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stddef.h>
 
-#include "models/conv_layer.h"
-#include "math/tensor.h"
+#include "../src/models/conv_nn.h"
+#include "../src/math/tensor.h"
 
 void test_conv_1 () {
   Tensor input(1, 3, 3);
@@ -100,6 +100,7 @@ void test_conv_2 ()
 
   std::cout << "forward" << std::endl;
   std::cout << Layer1.Forward(input) << std::endl;
+
   std::cout << "backward" << std::endl;
   std::cout << Layer1.Backward(grad, input) << std::endl;
 
@@ -112,6 +113,6 @@ void test_conv_2 ()
 
 int main()
 {
-  // test_conv_1();
+  test_conv_1();
   test_conv_2();
 }

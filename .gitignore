@@ -1,2 +1,5 @@
 /build
 README.pdf
+.vscode
+*.o
+work_plan.md

@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    "boost-ublas",
+    "boost-json"
+  ]
+}
