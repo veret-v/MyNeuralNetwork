@@ -9,9 +9,9 @@ ConvolutionLayer::ConvolutionLayer(
     size_t _padding
 ) : distribution(0.0, sqrt(2.0 / (_kernel_size.width*_kernel_size.height*_kernel_size.depth)))
 {
-    this -> filters_num    = _filters_num; 
-    this -> step           = _step; 
-    this -> padding        = _padding;
+    filters_num    = _filters_num; 
+    step           = _step; 
+    padding        = _padding;
 
     kernel_size.width  = _kernel_size.width;
     kernel_size.height = _kernel_size.height;

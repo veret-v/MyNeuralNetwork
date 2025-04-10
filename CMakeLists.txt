@@ -3,7 +3,9 @@ set (CMAKE_CXX_STANDARD 20)
 
 project (my_nlp)
 add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME} PRIVATE "src/run.cpp")
+# target_sources(${PROJECT_NAME} PRIVATE "src/run.cpp")
+# target_sources(${PROJECT_NAME} PRIVATE "src/test_conv.cpp")
+# target_sources(${PROJECT_NAME} PRIVATE "src/test_corpus.cpp")
 target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}")
 
 set(Boost_USE_STATIC_LIBS OFF) 
