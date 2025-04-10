@@ -11,7 +11,7 @@ struct TensorSize {
     size_t width; 
 
     TensorSize(size_t _depth,  size_t _height, size_t _width) : depth(_depth), height(_height), width(_width) {};
-    TensorSize(size_t _height, size_t _width) : TensorSize(0, _height, width) {};
+    TensorSize(size_t _height, size_t _width) : TensorSize(0, _height, _width) {};
     TensorSize() : TensorSize(1, 3, 3) {};
 
 };

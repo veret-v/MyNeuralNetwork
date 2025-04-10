@@ -1,117 +1,54 @@
-#include <iostream>
-#include <stddef.h>
-
+#include "models/activation_layer.h"
 #include "models/conv_layer.h"
-#include "math/tensor.h"
+#include "models/pooling_layer.h"
+#include "models/full_con_layer.h"
 
-void test_conv_1 () {
-  Tensor input(1, 3, 3);
-  Tensor output(1, 2, 2);
-  Tensor grad(1, 2, 2);
+#include "data_processing/texts_corpus.h"
 
-  size_t p = 0;
+#include <iostream>
+#include <tuple>
 
-  for (size_t i = 0; i < input.GetSize().height; i++) {
-      for (size_t j = 0; j < input.GetSize().width; j++)
-          input(0, i, j) = p;
-          p++;
-  }
+typedef std::tuple<Tensor, int, bool> info;
+
+// TextCorpus corpus("../data/IMDB_dataset-1.csv");
+
+// ConvolutionLayer    conv();
+// ActivationLayer     activ();
+// PoolingLayer        pool();
+// FullyConnectedLayer full();
+
+// double CrossEntropyLoss(const Tensor &out)
+// {
+//   double loss = 0;
+//   for (size_t i = 0; i < out.GetSize().depth; i++)
+//   {
+//     loss += i * log(out(i, 0, 0));
+//   }
+//   return loss;
+// }
+
+// Tensor CrossEntropyGradient(const Tensor &out)
+// {
+//   Tensor grad(out.GetSize());
+//   for (size_t i = 0; i < out.GetSize().depth; i++)
+//   {
+//     grad(i, 0, 0) = - 1 / out(i, 0, 0);
+//   }
+//   return grad;
+// }
+
+// info ForwardProp(const Tensor &sentence, size_t label)
+// { 
   
-  ConvolutionLayer Layer1(TensorSize(1, 3, 3), TensorSize(1, 2, 2), 1, 1, 0);
-  Tensor kernel(1, 2, 2);
-  double offset = 0;
 
-  kernel((size_t)0, (size_t)0, (size_t)0) = 1;
-  kernel((size_t)0, (size_t)1, (size_t)0) = 1;
-  kernel((size_t)0, (size_t)0, (size_t)1) = 1;
-  kernel((size_t)0, (size_t)1, (size_t)1) = 1;
+// }
 
-  grad((size_t)0, (size_t)0, (size_t)0) = 1;
-  grad((size_t)0, (size_t)1, (size_t)0) = 1;
-  grad((size_t)0, (size_t)0, (size_t)1) = 1;
-  grad((size_t)0, (size_t)1, (size_t)1) = 1;
-
-  Layer1.SetKernels(kernel);
-  Layer1.SetOffset(offset);
-
-  std::cout << "input" << std::endl;
-  std::cout << input << std::endl;
-
-  std::cout << "kernel" << std::endl;
-  std::cout << kernel << std::endl;
-
-  std::cout << "offset" << std::endl;
-  std::cout << offset << std::endl;
-
-  std::cout << "forward" << std::endl;
-  std::cout << Layer1.Forward(input) << std::endl;
-
-  std::cout << "backward" << std::endl;
-  std::cout << Layer1.Backward(grad, input) << std::endl;
-
-  std::cout << "w_grad" << std::endl;
-  std::cout << Layer1.GetKernelsGrad()[0] << std::endl;
-
-  std::cout << "b_grad" << std::endl;
-  std::cout << Layer1.GetOffsetsGrad()[0] << std::endl;
-}
-
-
-void test_conv_2 () 
-{
-  Tensor input(2, 4, 1);
-  Tensor output(1, 3, 1);
-  Tensor grad(1, 3, 1);
-
-  size_t p = 0;
-
-  for (size_t i = 0; i < input.GetSize().height; i++) {
-      for (size_t d = 0; d < input.GetSize().depth; d++)
-      {
-          input(d, i, 0) = p;
-          p++;
-      }
-  }
-  
-  ConvolutionLayer Layer1(TensorSize(2, 4, 1), TensorSize(2, 2, 1), 1, 1, 0);
-  Tensor kernel(2, 2, 1);
-  double offset = 0;
-
-  kernel((size_t)0, (size_t)0, (size_t)0) = 1;
-  kernel((size_t)0, (size_t)1, (size_t)0) = 1;
-  kernel((size_t)1, (size_t)0, (size_t)0) = 1;
-  kernel((size_t)1, (size_t)1, (size_t)0) = 1;
-
-  grad((size_t)0, (size_t)0, (size_t)0) = 1;
-  grad((size_t)0, (size_t)1, (size_t)0) = 1;
-  grad((size_t)0, (size_t)2, (size_t)0) = 1;
-
-  Layer1.SetKernels(kernel);
-  Layer1.SetOffset(offset);
-
-  std::cout << "input" << std::endl;
-  std::cout << input << std::endl;
-
-  std::cout << "kernel" << std::endl;
-  std::cout << kernel << std::endl;
-
-  std::cout << "offset" << std::endl;
-  std::cout << offset << std::endl;
-
-  std::cout << "forward" << std::endl;
-  std::cout << Layer1.Forward(input) << std::endl;
-  std::cout << "backward" << std::endl;
-  std::cout << Layer1.Backward(grad, input) << std::endl;
-
-  std::cout << "w_grad" << std::endl;
-  std::cout << Layer1.GetKernelsGrad()[0] << std::endl;
-
-  std::cout << "b_grad" << std::endl;
-  std::cout << Layer1.GetOffsetsGrad()[0] << std::endl;
-}
 
 int main()
 {
-  // test_conv_1();
-  test_conv_2();
+  TextCorpus corpus("../data/texts_imdb.txt", "../data/target_imdb.txt");
+  corpus.OneHotEncoding();
+  std::cout << corpus.GetEmbeddingSize() << std::endl;
+  std::cout << corpus.GetMaxTextLen() << std::endl;
+
 }

@@ -1,8 +1,8 @@
 target_sources(${PROJECT_NAME} PRIVATE 
-    base_nn.cpp 
-    base_nn.h 
-    conv_nn.cpp 
-    conv_nn.h 
-    recur_nn.cpp
-    recur_nn.h
+    full_con_layer.cpp 
+    full_con_layer.h 
+    conv_layer.cpp 
+    conv_layer.h 
+    activation_layer.cpp
+    activation_layer.h
 )

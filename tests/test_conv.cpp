@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stddef.h>
 
-#include "../src/models/conv_nn.h"
+#include "../src/models/conv_layer.h"
 #include "../src/math/tensor.h"
 
 void test_conv_1 () {

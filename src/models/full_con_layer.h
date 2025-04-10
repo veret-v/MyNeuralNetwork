@@ -1,5 +1,5 @@
-#ifndef CONVOLUTION_NN
-#define CONVOLUTION_NN
+#ifndef FULL_CON_LAYER
+#define FULL_CON_LAYER
 
 #include <random>
 #include <stddef.h> 
@@ -21,6 +21,9 @@ private:
         ELU // экспоненциальный выпрямитель
     };
 
+    bool   soft_max;
+    double soft_max_sum;
+
     std::default_random_engine generator;
     std::normal_distribution<double> distribution;
 
@@ -38,24 +41,39 @@ private:
     TensorSize filter_size;
 
     ActivationType activation_type; 
+
     Tensor activ_grad;
+    Tensor softmax_grad;
     
     ActivationType GetActivationType(const std::string& activation_type) const;
 
     void InitWeights();
     void Activate(Tensor &output);
+    void SoftMax(Tensor &output);
 
 public:
     FullyConnectedLayer(
         TensorSize _size,
         int outputs, 
-        const std::string& activation_type = "none"
+        const std::string& activation_type = "none",
+        bool soft_max=0
     );
 
     Tensor Forward(const Tensor &X);
     Tensor Backward(const Tensor &grad, const Tensor &X);
 
     void UpdateWeights(double learning_rate);
+
+    // функции для тестов 
+
+    Tensor GetFilter();
+    Tensor GetFilterGrad();
+
+    std::vector<double> GetOffsets();
+    std::vector<double> GetOffsetsGrad();
+
+    void SetFilter(Tensor _filter);
+    void SetOffset(std::vector<double> _offset);
 };
 
 
